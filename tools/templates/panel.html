@@ -1,0 +1,28 @@
+{% load bootstrap3 i18n %}
+{% load url from future %}
+  {% block panel %}
+
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li {% if "index" in request.path %} class="active" {% endif %} {% ifequal request.path "/" %} class="active" {% endifequal %}>
+            <a href="{% url 'index' %}">{% trans "Index" %}</a>
+          </li>
+          {% if request.user.is_authenticated %}
+            <li {% if "logout" in request.path %} class="active" {% endif %}>
+              <a href="{% url 'logout' %}">{% trans "Wyloguj" %}</a>
+            </li>
+          {% else %}
+            <li {% if "login" in request.path %} class="active" {% endif %}>
+              <a href="{% url 'login' %}">{% trans "Zaloguj" %}</a>
+            </li>
+            <li>
+              <a href="{% url 'registration' %}">{% trans "Rejestracja" %}</a>
+            </li>
+            
+          {% endif %}
+          
+        </ul>
+      </div>
+   </nav>
+  {% endblock %}

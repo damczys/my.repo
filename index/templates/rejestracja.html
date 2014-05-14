@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load bootstrap3 i18n %}
+  {% block content%}
+  <form class="form-horizontal" name="form" action="" method="post">
+    {% csrf_token %}
+    
+    {% if registration_failed %}<p class="text-error">{% trans "podany user istnieje" %}</p>{% endif %}
+    {% bootstrap_field form.username layout="horizontal" %}
+    {% bootstrap_field form.email layout="horizontal" %}
+    {% bootstrap_field form.password layout="horizontal" %}
+    {% bootstrap_field form.password2 layout="horizontal" %}
+    {% buttons layout="horizontal" %}
+        <button class="btn btn-default btn-primary">{% trans 'Zarejestruj' %}</button>
+        <a href="{% url 'index' %}" class="btn btn-default">{% trans 'Powrót' %}</a>
+    {% endbuttons %}
+  </form>
+  {% endblock %}

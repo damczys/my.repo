@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load bootstrap3 i18n %}
+	{% block head %}
+	{% endblock %}
+
+	{% block content %}
+		{% if errors %}
+			{% for error in errors %}
+				<div class="alert alert-error">
+					{{ error }}
+				</div>
+			{% endfor %}
+		{% endif %}
+		
+		{% if warnings %}
+			{% for warning in warnings %}
+				<div class="alert alert-block">
+					{{ warning }}
+				</div>
+			{% endfor %}
+		{% endif %}
+		
+		{% if infos %}
+			{% for info in infos %}
+				<div class="alert alert-info">
+					{{ info }}
+				</div>
+			{% endfor %}
+		{% endif %}
+		
+		{% if successes %}
+			{% for success in successes %}
+				<div class="alert alert-success">
+					{{ success }}
+				</div>
+			{% endfor %}
+		{% endif %}
+		
+		{% if back_url %}
+			<p>
+				<a href="{%url back_url %}" class="btn">{% trans 'Powrót' %}</a>
+			</p>
+		{% endif %}
+		
+	{% endblock %}

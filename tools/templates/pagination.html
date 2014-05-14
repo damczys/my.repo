@@ -1,0 +1,14 @@
+{% load i18n %}
+{% block paginationblock %}
+	{% if page_obj %}
+		<ul class="pagination pagination-centered">
+			<li {% if not data.has_previous %}class="disabled"{% endif %}><a href="{% if data.has_previous %}{% url page_view data.previous_page_number %}{% endif %}">{% trans 'Prev' %}</a></li>
+				{% for page_number in paginator.page_range %}
+					<li {% if page_number == page or page_number == 1 and not page %} class="active" {% endif %} ><a href="{% url page_view page_number %}">{{ page_number }}</a></li>
+				{% endfor %}		
+			<li {% if not data.has_next %}class="disabled" {% endif %}><a href="{% if data.has_next %}{% url page_view data.next_page_number %}{% endif %}">{% trans 'Next' %}</a></li>
+		</ul>
+	{% else %}
+		{% trans 'Brak danych do wyświetlenia' %}
+	{% endif %}
+{% endblock %}

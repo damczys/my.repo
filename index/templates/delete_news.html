@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load bootstrap3 i18n %}
+  {% block content %}
+    <form method="post" action="" class="form-horizontal" name="form" >
+      {% csrf_token %}
+      <div class="form-group alert alert-danger">
+         <label>{% trans 'Czy napewno chcesz usunąć wpis?'%}</label>
+      </div>
+      {% buttons %}
+        <button class="btn btn-default btn-warning">{% trans 'Usuń' %}</button>
+        <a href="{% url 'news/show' pk %}" class="btn btn-default">{% trans 'Powrót' %}</a>
+      {% endbuttons %}
+    </form>
+  
+  {% endblock %}

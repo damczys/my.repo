@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+  {% load tags author i18n bootstrap3 %}
+  {% block content %}
+	 <div class="panel panel-default">
+	   <div class="panel-heading"><h2 class="text-info">{{ news.topic|title }}</h2></div>
+     <div class="panel-body">{{ news.note|linebreaksbr }}</div>
+     <div class="panel-footer">
+      <div class="pull-left">
+        <small><strong>{{ news.date_add }}</strong> {% trans 'przez' %} <strong>{% author news %}</strong></small>
+      </div>
+      <div class="pull-right">
+        <small><strong><a class="btn-link" href="{% url 'news/delete' news.pk %}">{% trans 'Usuń' %}</a> <a class="btn-link" href="{% url 'news/edit' news.pk %}">{% trans 'Edytuj' %}</a></strong></small>
+      </div>
+      <br class="clear"/>
+      <div>{% tags news %}</div>
+     </div>
+     </div>
+    
+    <br class="clear" />
+    {% if comments %}
+    
+	  <div class="panel panel-default">
+	    <div class="panel-heading">
+	     {% trans 'Komentarze' %}
+	    </div>
+      <div class="panel-body">
+        {% include 'comments.html' %}
+      </div>
+    </div>
+    {% endif %}
+	    <form class="form" action="" method="POST" name="form">
+	      {% csrf_token %}
+	      {% if request.user.is_authenticated %}
+	        <div class="form-group">
+	          <label>{% trans 'Użytkownik' %}</label>
+		        <input class="form-control" disabled="True" id="id_logged_user" maxlength="30" name="call_number" type="text" value="{{ request.user.username }}">
+		      </div>
+		    {% endif %}
+	      
+      {% bootstrap_form comments_form %}
+      {% buttons %}
+	        <button class="btn btn-default btn-primary">{% trans 'Dodaj komentarz' %}</button>
+	    {% endbuttons %}
+	    </form>
+  {% endblock %}

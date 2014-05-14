@@ -1,0 +1,34 @@
+{% if deep < 4 %}
+  {% load i18n comments %}
+  {% for comment in comments %}
+  <div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+    {% if comment.username %}
+      {{ comment.username }}
+    {% else %}
+      {{ comment.not_logged_user }}
+    {% endif %}
+    <div class="pull-right">
+      <small>{{ comment.date_add }} {% if comment.date_change %}{% trans 'Edytowany dnia:' %}{{ comment.date_change }}{% endif %}</small>
+    </div>
+    {% if request.user.is_authenticated %}
+      <div class="pull-right">
+      {% if perms.user.change_comments %}<small><strong><a href="{% url 'comment/edit' comment.id request.path %}" class="btn-link">{% trans 'Edytuj' %}</a></strong></small>{% endif %}
+      {% if perms.user.delete_comments %}<small><strong><a href="{% url 'comment/delete' comment.id request.path %}" class="btn-link">{% trans 'Usuń' %}</a></strong></small>{% endif %}
+      <br/>
+      </div>
+    {% endif %}
+      <div class="pull-right">
+      {% if deep < 3%}<small><strong><a href="{% url 'reply/add' news.pk comment.id request.path %}" class="btn-link">{% trans 'Odpowiedz' %}</a></strong></small>{% endif %}
+      <br/>
+      </div>
+    </div>
+    <div class="panel-body">
+      {{ comment.comment|linebreaksbr }}
+    </div>
+  {% comments news.pk comment.id deep=deep perms=perms request=request %}
+  </div>
+  </div>
+  {% endfor %}
+{% endif %}

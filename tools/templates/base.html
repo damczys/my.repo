@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load bootstrap3 staticfiles i18n %}
+{% load url from future %}
+<html lang="pl">
+  <head>
+		<meta charset="UTF-8">
+  	<title>{% block title %}Blog{% endblock %}</title>
+  	<!-- CSS Bootstrap -->
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" />
+    
+		<!-- JS Bootstrap i jQuery -->
+    {% bootstrap_javascript jquery=True %}
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+
+		{% block head %}
+		{% endblock %}
+	</head>
+  <body>
+    {% include 'panel.html' %}
+	  <div class="container">
+		  <div class="row">
+		  	<div class="col-md-10">
+			    {% block content %}
+			    {% endblock %}
+		    </div>
+	      {% include 'menu.html' %}
+		    
+		  </div>
+	  </div>
+        
+   <div class="panel panel-footer"><small>{{ footer_value }}</small></div>
+  </body>
+</html>

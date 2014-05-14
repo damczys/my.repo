@@ -1,0 +1,19 @@
+{% load bootstrap3 i18n %}
+{% load url from future %}
+<div class="col-md-2">
+	<div class="panel panel-default">
+		  {% if request.user.is_authenticated %}
+		   <div class="panel-heading">{{ request.user.username }}</div>
+		   <div class="panel-body">
+		   <ul class="nav">
+		     <li><small><a href="{% url 'user_blog_index' %}">{% trans 'Pokaż blog' %}</a></small></li>
+		     {% if perms.tools.add_note %}<li><small><a href="{% url 'news/add' %}">Dodaj newsa</a></small></li>{% endif %}
+		   </ul>
+		   </div>
+		  {% else %}
+		   <div class="panel-heading">{% trans 'Niezalogowany' %}</div>
+		  {% endif %}
+	 {% block menu %}
+	 {% endblock %}
+	</div>
+</div>

@@ -1,0 +1,4 @@
+{% load base64f %}
+{% for tag in tagslist %}
+  <strong><small><a href="{% url 'news/show/by/tag' tag|base64f %}">{{ tag }}</a></small></strong>
+{% endfor %}

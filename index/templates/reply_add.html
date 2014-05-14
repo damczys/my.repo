@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+  {% load tags author i18n bootstrap3 %}
+  {% block content %}
+      <form class="form" action="" method="POST" name="form">
+        {% csrf_token %}
+        {% if request.user.is_authenticated %}
+          <div class="form-group">
+            <label>{% trans 'Użytkownik' %}</label>
+            <input class="form-control" disabled="True" id="id_logged_user" maxlength="30" name="call_number" type="text" value="{{ request.user.username }}">
+          </div>
+        {% endif %}
+        
+      {% bootstrap_form comments_form %}
+      {% buttons %}
+          <button class="btn btn-default btn-primary">{% trans 'Dodaj komentarz' %}</button>
+          <a href="{{ back_url }}" class="btn btn-default">{% trans 'Powrót' %}</a>
+      {% endbuttons %}
+      </form>
+  {% endblock %}

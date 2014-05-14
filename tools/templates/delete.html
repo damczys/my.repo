@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load bootstrap3 i18n %}
+
+	{% block content %}
+		<form action="" method="post">
+			{% csrf_token %}
+			<div class="alert alert-block">
+				{% trans 'Do you really want delete this item?' %}
+			</div>
+			<input type="submit" 
+		       value="{% trans 'Delete' %}"
+		       class="btn btn-warning"
+		       />
+		</form> 
+	{% endblock %}

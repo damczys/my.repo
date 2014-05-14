@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load bootstrap3 i18n %}
+  {% block content %}
+    <form method="post" action="" class="form-horizontal offset2" name="form" >
+	    {% csrf_token %}
+	    {% bootstrap_form form layout="horizontal" %}
+      <div class="form-group">
+        <div class="col-md-6 control-label">
+	       <label>{% trans 'Proszę podać maksymalnie 5 tagów oddzielając je średnikiem.'%}</label>
+	      </div>
+	    </div>
+	    {% bootstrap_form tagform layout="horizontal" %}
+      {% buttons layout='horizontal' %}
+	        <button class="btn btn-default btn-primary">{% trans 'Zapisz' %}</button>
+	        {% if 'news/edit' in request.path %}
+	         <a href="{% url 'news/show' pk %}" class="btn btn-default">{% trans 'Powrót' %}</a>
+	        {% else %}
+	         <a href="{% url 'index' %}" class="btn btn-default">{% trans 'Powrót' %}</a>
+	        {% endif %}
+      {% endbuttons %}
+    </form>
+  
+  {% endblock %}

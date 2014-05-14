@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load bootstrap3 i18n %}
+  {% block content%}
+  <form class="form-horizontal" name="form" action="" method="post">
+    {% csrf_token %}
+    {% if login_failed %}<p class="text-error">{% trans "Niepoprawny login lub/i hasło" %}</p>{% endif %}
+    {% bootstrap_form form layout="horizontal" %}
+    {% buttons layout="horizontal" %}
+        <button class="btn btn-default btn-primary">{% trans 'Zaloguj' %}</button>
+        <a href="{% url 'index' %}" class="btn btn-default">{% trans 'Powrót' %}</a>
+    {% endbuttons %}
+  </form>
+  {% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+  {% load tags author i18n %}
+	{% block content %}
+  {% if data %}
+		{% for news in data %}
+		 {% if forloop.first %}
+		   <div class="panel panel-default">
+		     <div class="panel-heading"><h2><a href="{% url 'news/show' news.pk %}" class="btn-link">{{ news.topic|title }}</a></h2></div>
+		 {% else %}
+		   <div class="panel panel-default">
+		     <div class="panel-heading"><h3><a href="{% url 'news/show' news.pk %}" class="btn-link">{{ news.topic|title }}</a></h3></div>
+		 {% endif %}
+		       <div class="panel-body">{{ news.note|linebreaksbr|truncatewords_html:15 }}</div>
+           <div class="panel-footer">
+             <small><strong>{{ news.date_add }}</strong> {% trans 'przez' %} <strong>{% author news %}</strong></small>
+             <div>{% tags news %}</div>
+           </div>
+       </div>
+		{% endfor %}
+		
+    {% endif %}
+		{% include 'pagination.html' %}
+	{% endblock %}
